@@ -1,0 +1,129 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Domi Sushi — Мәзір{% endblock %}
+{% block hero_class %}menu-hero{% endblock %}
+
+{% block hero_content %}
+<div class="hero-content container">
+  <h1>Біздің толық мәзіріміз</h1>
+  <p>Жоғары сапалы суши және фирмалық тағамдардың әртүрлілігін зерттеңіз.</p>
+</div>
+{% endblock %}
+
+{% block content %}
+  <!-- Секция скачивания PDF -->
+  <section class="download-section container">
+    <h2>Мәзірді PDF түрінде жүктеп алыңыз</h2>
+
+    <div class="download-options">
+      <div class="download-card">
+        <input type="checkbox" id="pdf1" name="pdf-files" value="allmenu">
+        <label for="pdf1">Толық мәзір</label>
+      </div>
+
+      <div class="download-card">
+        <input type="checkbox" id="pdf2" name="pdf-files" value="drink">
+        <label for="pdf2">Сусындар мәзірі</label>
+      </div>
+    </div>
+
+    <button id="downloadBtn" class="download-btn" disabled>Таңдалған файл(дар)ды жүктеу</button>
+  </section>
+
+  <!-- Генератор случайного заказа -->
+  <section class="random-order container">
+    <h2>Случайный заказ от Domi Sushi</h2>
+    <p>Выбери кубик и количество блюд — узнай, что тебе приготовят сегодня!</p>
+
+    <form id="diceForm">
+      <label>Кубик (сторон):</label>
+      <input type="number" id="sides" value="6" min="4" max="100">
+
+      <label>Количество блюд:</label>
+      <input type="number" id="count" value="3" min="1" max="10">
+
+      <button type="button" onclick="generateOrder()">Сгенерировать заказ</button>
+    </form>
+
+    <div id="order-result" style="margin-top:20px; font-size:1.2rem;"></div>
+  </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const downloadBtn = document.getElementById('downloadBtn');
+
+  const pdfFiles = {
+    "allmenu": "{% static 'pdf/allmenu.pdf' %}",
+    "drink": "{% static 'pdf/drinkmenu.pdf' %}",
+  };
+
+  document.querySelectorAll('input[name="pdf-files"]').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      const checked = document.querySelectorAll('input[name="pdf-files"]:checked');
+      downloadBtn.disabled = checked.length === 0;
+    });
+  });
+
+  downloadBtn.addEventListener('click', () => {
+    const selected = document.querySelectorAll('input[name="pdf-files"]:checked');
+
+    if (selected.length === 0) {
+      alert("Ешқандай файл таңдалмаған!");
+      return;
+    }
+
+    selected.forEach(checkbox => {
+      const fileKey = checkbox.value;
+      const filePath = pdfFiles[fileKey];
+
+      if (filePath) {
+        fetch(filePath)
+          .then(response => {
+            if (!response.ok) throw new Error("Файл табылмады");
+            return response.blob();
+          })
+          .then(blob => {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${fileKey}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+          })
+          .catch(error => {
+            console.error("Қате:", error);
+            alert("Файлды жүктеу мүмкін болмады. Жолды тексеріңіз: " + filePath);
+          });
+      }
+    });
+  });
+
+  const menuItems = [
+    "Тона суши", "Лосось суши", "Калифорния ролл", "Филадельфия", 
+    "Дракон ролл", "Спайси туна", "Радужный ролл", "Унаги ролл",
+    "Темпура креветка", "Вегетарианский ролл"
+  ];
+
+  function generateOrder() {
+    const sides = parseInt(document.getElementById("sides").value) || 6;
+    const count = parseInt(document.getElementById("count").value) || 1;
+
+    let selected = [];
+    for (let i = 0; i < count; i++) {
+      const roll = Math.floor(Math.random() * sides) + 1;
+      const itemIndex = (roll - 1) % menuItems.length;
+      selected.push(menuItems[itemIndex]);
+    }
+
+    const result = `Твой случайный заказ (${count} позиций):\n` +
+                   selected.join(", ") +
+                   `\nПриятного аппетита! 🍣`;
+
+    document.getElementById("order-result").innerText = result;
+  }
+</script>
+{% endblock %}

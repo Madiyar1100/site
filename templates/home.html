@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+<h2>Добро пожаловать!</h2>
+
+<div style="text-align: center; color: #666; line-height: 1.8;">
+    <p>Это главная страница нашего вебсайта.</p>
+    <p>Здесь вы можете зарегистрироваться или войти в свой аккаунт.</p>
+    
+    <div style="margin-top: 2rem;">
+        <p style="font-size: 3rem; margin-bottom: 1rem;">👋</p>
+        <p style="font-size: 1.2rem;">Используйте навигационное меню выше для входа или регистрации</p>
+    </div>
+    
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #ddd;">
+        <p><strong>Функции сайта:</strong></p>
+        <ul style="text-align: left; margin: 1rem auto; width: fit-content;">
+            <li>✅ Регистрация новых пользователей</li>
+            <li>✅ Безопасный вход в аккаунт</li>
+            <li>✅ Управление профилем</li>
+            <li>✅ Надежная база данных</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

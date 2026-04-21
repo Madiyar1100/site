@@ -1,0 +1,138 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Профиль - Domi Sushi{% endblock %}
+
+{% block content %}
+<style>
+  .profile-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px;
+    background: rgba(26,26,26,0.8);
+    border: 1px solid rgba(212,175,55,0.3);
+    border-radius: 15px;
+  }
+
+  .profile-container h1 {
+    font-family: 'Playfair Display', serif;
+    color: #d4af37;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .profile-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .profile-field {
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 10px;
+    border-left: 3px solid #d4af37;
+  }
+
+  .profile-field label {
+    display: block;
+    color: #d4af37;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+  }
+
+  .profile-field p {
+    color: #ccc;
+    margin: 0;
+    word-break: break-word;
+  }
+
+  .profile-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 40px;
+  }
+
+  .profile-actions button,
+  .profile-actions a {
+    padding: 12px 30px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: #d4af37;
+    color: #000;
+  }
+
+  .btn-primary:hover {
+    background: #b58e2a;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: #444;
+    color: #fff;
+    border: 1px solid #666;
+  }
+
+  .btn-secondary:hover {
+    background: #555;
+  }
+
+  @media (max-width: 600px) {
+    .profile-info {
+      grid-template-columns: 1fr;
+    }
+
+    .profile-actions {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="profile-container">
+  <h1>{{ user.first_name|default:user.username }} - Профиль</h1>
+
+  <div class="profile-info">
+    <div class="profile-field">
+      <label>Қолданушы аты</label>
+      <p>{{ user.username }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Email</label>
+      <p>{{ user.email|default:"Ешқандай email" }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Тіркелген күні</label>
+      <p>{{ user.date_joined|date:"d.m.Y H:i" }}</p>
+    </div>
+
+    <div class="profile-field">
+      <label>Телефон нөмірі</label>
+      <p>{{ profile.phone|default:"Енгізілмеген" }}</p>
+    </div>
+
+    <div class="profile-field" style="grid-column: 1 / -1;">
+      <label>Мекенжайы</label>
+      <p>{{ profile.address|default:"Енгізілмеген" }}</p>
+    </div>
+  </div>
+
+  <div class="profile-actions">
+    <a href="{% url 'home' %}" class="btn-secondary">← Басты бетке</a>
+    <a href="{% url 'logout' %}" class="btn-secondary">Шығу</a>
+  </div>
+</div>
+{% endblock %}

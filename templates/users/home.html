@@ -1,0 +1,115 @@
+{% extends 'users/base.html' %}
+{% load static %}
+
+{% block title %}Domi Sushi - Қаладағы ең жақсы суши{% endblock %}
+{% block hero_class %}{% endblock %}
+
+{% block hero_content %}
+<div class="hero-content container">
+  <h2 class="subtitle">Қаладағы ең жақсы суши</h2>
+  <h1>ЖОҒАРЫ САПАЛЫ СУШИДІҢ БАЙ ДӘМІН СЕЗІҢІЗ</h1>
+  <p>Біз мәзірімізде тек бес жұлдызды сапаны қолданамыз, келіңіз және біз ұсынатын әр тағамның байлығын сезініңіз.</p>
+  <a href="{% url 'menu' %}"><button class="cta">МӘЗІРГЕ ӨТУ</button></a>
+</div>
+{% endblock %}
+
+{% block content %}
+  <!-- Бүгінгі арнайы ұсыныс -->
+  <section class="special container">
+    <h2 class="section-title">Бүгінгі арнайы ұсыныс</h2>
+    <p class="section-subtitle">Арнайы мәзір күн сайын өзгереді, бұл бүгінгі біздің арнайы тағамдарымыз</p>
+
+    <div class="scroll-controls">
+      <button class="scroll-btn scroll-prev" aria-label="Алдыңғы тағам">←</button>
+      <button class="scroll-btn scroll-next" aria-label="Келесі тағам">→</button>
+    </div>
+
+    <div class="cards-wrapper">
+      <div class="cards" id="active-card-container">
+      </div>
+    </div>
+  </section>
+
+  <!-- Біздің фирмалық тағамдарымыз -->
+  <section class="specialties container">
+    <h2 class="section-title">Біздің фирмалық тағамдарымыз</h2>
+    <p class="section-subtitle">Мейрамханамыздың шынайы тағамдары жоғары сапалы ингредиенттермен дайындалады</p>
+    <ul class="tabs">
+      <li>Фирмалық</li>
+      <li>Үй стилі</li>
+      <li>Стейк</li>
+      <li>Күрішпен</li>
+      <li>Коктейльдер</li>
+      <li>Шарап</li>
+      <li>Тәбет ашатындар</li>
+    </ul>
+    <div class="items">
+      <div class="item reverse">
+        <img src="https://thumbs.dreamstime.com/b/green-dragon-sushi-rolls-eel-avocado-close-up-close-up-green-dragon-sushi-rolls-eel-avocado-dark-plate-404715684.jpg" alt="Дракон суши">
+        <div class="text">
+          <h3>Дракон суши</h3>
+          <p>Ингредиенттер: арнайы жабысқақ күріш, нори (теңіз балдыры), балық (лосось, тунец, угорь) және теңіз өнімдері.</p>
+          <span class="price">50 000 ₸</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="text">
+          <h3>Кремді суши</h3>
+          <p>Ингредиенттер: Дәмдеуіш ретінде васаби, соя соусы және маринадталған имбирь міндетті түрде қосылады.</p>
+          <span class="price">50 000 ₸</span>
+        </div>
+        <img src="https://www.shutterstock.com/shutterstock/photos/2644516693/display_1500/stock-photo-a-close-up-view-of-sushi-rolls-filled-with-creamy-avocado-fresh-salmon-and-soft-cream-cheese-2644516693.jpg" alt="Кремді суши">
+      </div>
+      <div class="item reverse">
+        <img src="https://c8.alamy.com/comp/2PPB5KF/closeup-of-sashimi-sushi-roll-with-nori-seaweed-rice-salmon-fish-vegetable-isolated-on-white-background-with-clipping-path-2PPB5KF.jpg" alt="Лосось роллы">
+        <div class="text">
+          <h3>Лосось роллы</h3>
+          <p>Ингредиенттер: Толтырғыш ретінде көбіне қияр, авокадо, крем-ірімшік және тобико уылдырығы қолданылады.</p>
+          <span class="price">50 000 ₸</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ас ішу іс-шаралары -->
+  <section class="events container">
+    <h2 class="section-title">Ас ішу іс-шаралары</h2>
+    <p class="section-subtitle">Біз сіздің ерекше күніңіз үшін ас ішу іс-шараларын ұйымдастырамыз</p>
+    <div class="buttons">
+      <button onclick="alert('Жеке іс-шаралар туралы ақпарат жақында шығады!');">Жеке іс-шаралар</button>
+      <button onclick="alert('Корпоративтік іс-шаралар туралы ақпарат жақында шығады!');">Корпоративтік іс-шаралар</button>
+    </div>
+    <div class="event-items">
+      <div class="event">
+        <img src="https://www.dine.co.uk/wp-content/uploads/2023/07/DSC02595-1-800x533.jpg.webp" alt="Fine Dining">
+        <span class="price">250 000 ₸</span>
+        <h3>Fine Dining</h3>
+        <p>Шампан бөтелкесі, 2+ адамға десерт мұнарасы</p>
+      </div>
+      <div class="event">
+        <img src="https://platform.houston.eater.com/wp-content/uploads/sites/20/chorus/uploads/chorus_asset/file/25506919/olmos_tmc_0619.JPG?quality=90&strip=all&crop=0,0,100,100" alt="Gold Dining">
+        <span class="price">500 000 ₸</span>
+        <h3>Gold Dining</h3>
+        <p>Құпия мәзір суши 2+ адамға, ерекше десерт</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Біздің тарихымыз -->
+  <section id="about" class="story container">
+    <h2 class="section-title">Біздің тарихымыз</h2>
+    <p class="section-subtitle">Ең жақсы қызметпен сәтті люкс мейрамхана құру жолы</p>
+    <div class="story-grid">
+      <div class="images">
+        <img src="https://c8.alamy.com/comp/KYMXAF/female-chef-preparing-a-sushi-restaurant-in-the-kitchen-KYMXAF.jpg" alt="Аспаз 1">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEid5cvBFNS9GRyqQDe239VK4iAtuHT1hsVG-pA_UM0vtUZaFNp3AG4-n7VyupS4l_vfmMNVcGn5NcSfhY_eg1BbWTatbuGHazVKsL-w0Codj7LgPWWJwHo5dMy9yyww5BG4EXr0nL-yViaQ/s1600/DSC00041.jpg" alt="Аспаз 2">
+        <img src="https://www.wasserstrom.com/blog/wp-content/uploads/2022/05/sushi-chef-final-header.jpg" alt="Аспаз 3">
+      </div>
+      <div class="text">
+        <p>Суши — сірке суы қосылған күріштен және теңіз өнімдерінен (балық, асшаян) дайындалатын дәстүрлі жапон тағамы. Ол Жапонияның бай мәдениетінің бөлігі, қазіргі таңда дүниежүзіне танымал, денсаулыққа пайдалы және эстетикалық тағам санатында.</p>
+        <p>Сушидің шығу тарихына тоқталатын болсақ, бұл тағамның аты емес, балықты сақтау әдісі ретінде қолданылған.</p>
+        <button class="cta" onclick="alert('Біз туралы толығырақ ақпарат жақында шығады!');">БІЗ ТУРАЛЫ КӨБІРЕК</button>
+      </div>
+    </div>
+  </section>
+{% endblock %}

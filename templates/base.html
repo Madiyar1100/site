@@ -1,0 +1,306 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Главная{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'theme.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+    <!-- Ранняя инициализация темы для избежания мельканий -->
+    <script>
+      (function() {
+        const saved = localStorage.getItem('theme-preference');
+        const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = saved === 'dark' || (!saved && systemDark);
+        
+        if (isDark) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.removeAttribute('data-theme');
+        }
+      })();
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.5rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        
+        nav h1 {
+            color: var(--text);
+            font-size: 1.8rem;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        nav a.active {
+            background-color: #667eea;
+        }
+
+        nav .theme-toggle {
+            margin-left: auto;
+            margin-right: 10px;
+        }
+        
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .container {
+            background-color: var(--card-bg);
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px var(--shadow);
+            max-width: 500px;
+            width: 100%;
+            margin: 0 1rem;
+        }
+        
+        h2 {
+            color: var(--text);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: var(--text);
+            text-align: center;
+            padding: 1.5rem 2rem;
+            margin-top: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 5px rgba(102, 126, 234, 0.5);
+        }
+        
+        button {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #764ba2;
+        }
+        
+        .message {
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        .link-text {
+            text-align: center;
+            margin-top: 1rem;
+            color: #666;
+        }
+        
+        .link-text a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .link-text a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav>
+            <h1>🏠 Мой сайт</h1>
+            <ul>
+                <li><a href="{% url 'home' %}">Главная</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+                <li><a href="{% url 'login' %}">Вход</a></li>
+            </ul>
+            <button class="theme-toggle" id="theme-toggle-btn">
+                <span class="theme-toggle-icon">🌙</span>
+                <span class="theme-toggle-text">Тема</span>
+            </button>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+    
+    <footer>
+        <p>&copy; 2026 Мой сайт. Все права защищены.</p>
+    </footer>
+
+    <!-- Модальное окно бронирования -->
+    <div id="booking-modal" style="display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.4); overflow-y: auto;">
+        <div style="background-color: #fefefe; margin: 5% auto; padding: 20px; border: 1px solid #888; width: 90%; max-width: 500px; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); max-height: 90vh; overflow-y: auto;">
+            <span class="close-modal" style="color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer;">&times;</span>
+            <h2 style="text-align: center; color: #333; margin-bottom: 20px;">Брондау (Бронирование)</h2>
+            
+            <form id="booking-form" method="POST" style="display: flex; flex-direction: column; gap: 15px;">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="booking-date" style="display: block; margin-bottom: 5px; font-weight: bold;">📅 Күні (Дата)</label>
+                    <input type="date" id="booking-date" name="date" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-time" style="display: block; margin-bottom: 5px; font-weight: bold;">🕐 Уақыты (Время)</label>
+                    <input type="time" id="booking-time" name="time" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-persons" style="display: block; margin-bottom: 5px; font-weight: bold;">👥 Адам саны (Количество человек)</label>
+                    <input type="number" id="booking-persons" name="persons" min="1" max="100" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-table" style="display: block; margin-bottom: 5px; font-weight: bold;">🪑 Столик (Стол)</label>
+                    <input type="text" id="booking-table" name="table" placeholder="Мес. №1, №2, и т.д." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-name" style="display: block; margin-bottom: 5px; font-weight: bold;">👤 Аты-жөні (Имя)</label>
+                    <input type="text" id="booking-name" name="name" required placeholder="Өзіңіздің аты" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-phone" style="display: block; margin-bottom: 5px; font-weight: bold;">📞 Телефон</label>
+                    <input type="tel" id="booking-phone" name="phone" required placeholder="+7XXXXXXXXXX" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-email" style="display: block; margin-bottom: 5px; font-weight: bold;">✉️ Email (опционально)</label>
+                    <input type="email" id="booking-email" name="email" placeholder="example@mail.com" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem;">
+                </div>
+                
+                <div>
+                    <label for="booking-requests" style="display: block; margin-bottom: 5px; font-weight: bold;">💬 Арнайы сілтеу (Специальные пожелания)</label>
+                    <textarea id="booking-requests" name="special_requests" rows="3" placeholder="Өзіңіздің қалаулары..." style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; font-family: inherit;"></textarea>
+                </div>
+                
+                <button type="submit" style="background-color: #667eea; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; font-weight: bold;">✅ Брондау бақ (Подтвердить бронирование)</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="{% static 'script.js' %}"></script>
+    <script src="{% static 'theme.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'chatbot.css' %}">
+    <script src="{% static 'chatbot.js' %}"></script>
+</body>
+</html>

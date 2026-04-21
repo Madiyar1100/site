@@ -1,0 +1,222 @@
+/* ════════════════════════════════════════════════════════════════
+   СИСТЕМА ТЕМ - СВЕТЛАЯ И ТЕМНАЯ ТЕМА
+   ════════════════════════════════════════════════════════════════ */
+
+/* СВЕТЛАЯ ТЕМА (по умолчанию) */
+:root {
+  /* Основные цвета */
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --accent: #d4af37;
+  --subtitle: #d4af37;
+  --card-bg: #f5f5f5;
+  --hero-bg: #ffffff;
+  
+  /* Дополнительные цвета */
+  --border-color: #e0e0e0;
+  --hover-bg: #eeeeee;
+  --shadow: rgba(0, 0, 0, 0.1);
+  --input-bg: #ffffff;
+  --input-border: #cccccc;
+  --button-bg: #f0f0f0;
+  --button-hover: #e0e0e0;
+  --link-color: #0066cc;
+  
+  /* Переходы */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ТЕМНАЯ ТЕМА */
+[data-theme="dark"] {
+  --bg: #000;
+  --text: #fff;
+  --accent: #d4af37;
+  --subtitle: #d4af37;
+  --card-bg: #1a1a1a;
+  --hero-bg: #000;
+  
+  /* Дополнительные цвета */
+  --border-color: #333333;
+  --hover-bg: #222222;
+  --shadow: rgba(255, 255, 255, 0.1);
+  --input-bg: #1a1a1a;
+  --input-border: #444444;
+  --button-bg: #222222;
+  --button-hover: #333333;
+  --link-color: #66b3ff;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ
+   ════════════════════════════════════════════════════════════════ */
+
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 10px 15px;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.theme-toggle:hover {
+  background: var(--accent);
+  color: #000;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+}
+
+.theme-toggle-icon {
+  font-size: 1.3rem;
+  display: inline-block;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ПРИМЕНЕНИЕ ПЕРЕМЕННЫХ К ЭЛЕМЕНТАМ
+   ════════════════════════════════════════════════════════════════ */
+
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+html {
+  background: var(--bg);
+}
+
+/* СВЕТЛАЯ ТЕМА - СПЕЦИАЛЬНЫЕ СТИЛИ */
+:root .hero {
+  background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('https://platform.houston.eater.com/wp-content/uploads/sites/20/chorus/uploads/chorus_asset/file/25506919/olmos_tmc_0619.JPG') center/cover no-repeat !important;
+}
+
+/* ТЕМНАЯ ТЕМА - СПЕЦИАЛЬНЫЕ СТИЛИ */
+[data-theme="dark"] .hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://platform.houston.eater.com/wp-content/uploads/sites/20/chorus/uploads/chorus_asset/file/25506919/olmos_tmc_0619.JPG') center/cover no-repeat !important;
+}
+
+.hero-content {
+  color: var(--text);
+}
+
+.card, .menu-item {
+  background: var(--card-bg);
+  color: var(--text);
+  border-color: var(--border-color);
+}
+
+.card:hover, .menu-item:hover {
+  background: var(--hover-bg);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+textarea,
+select {
+  background: var(--input-bg);
+  color: var(--text);
+  border-color: var(--input-border);
+  border: 1px solid var(--input-border);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+textarea::placeholder {
+  color: var(--text);
+  opacity: 0.5;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.3);
+}
+
+button {
+  background: var(--button-bg);
+  color: var(--text);
+  border: 1px solid var(--border-color);
+}
+
+button:hover {
+  background: var(--button-hover);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.auth-btn,
+.reservation {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+
+.auth-btn:hover,
+.reservation:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.modal {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border-color);
+}
+
+.messages-container {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.alert {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border-color);
+}
+
+.suggested-buttons button {
+  background: var(--button-bg);
+  color: var(--text);
+  border: 1px solid var(--border-color);
+}
+
+.suggested-buttons button:hover {
+  background: var(--button-hover);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   ПЛАВНЫЙ ПЕРЕХОД ПРИ ИЗМЕНЕНИИ ТЕМЫ
+   ════════════════════════════════════════════════════════════════ */
+
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+}
