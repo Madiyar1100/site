@@ -109,6 +109,42 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
+## 🔐 Настройка переменных окружения и секретов
+
+В проекте используется внешний API-ключ (Groq). Никогда не храните секреты в коде — используйте переменные окружения и секреты CI/CD.
+
+- Локальная настройка (PowerShell):
+```powershell
+# Временная переменная в текущем сеансе
+$env:GROQ_API_KEY = "ваш_ключ_здесь"
+# Сохранить перманентно в переменных пользователя (Windows)
+setx GROQ_API_KEY "ваш_ключ_здесь"
+```
+
+- Локальная настройка (Git Bash / WSL / Linux / macOS):
+```bash
+export GROQ_API_KEY="ваш_ключ_здесь"
+```
+
+- Настройка в GitHub (репозиторий):
+  - Откройте `Settings` → `Secrets and variables` → `Actions` → `New repository secret`.
+  - Добавьте имя `GROQ_API_KEY` и вставьте значение ключа.
+
+- Проверка переменной окружения:
+```powershell
+# PowerShell
+echo $env:GROQ_API_KEY
+
+# Git Bash / Linux
+echo $GROQ_API_KEY
+```
+
+- Рекомендации:
+  - Убедитесь, что `users/views.py` читает ключ через `os.environ.get("GROQ_API_KEY")` (уже настроено).
+  - Не коммитьте файлы с секретами; добавьте их в `.gitignore`.
+  - Для CI/CD используйте защищённые секреты на платформе (GitHub Actions, Heroku, Azure и т.д.).
+
+
 ## ⚙️ Настройки Django
 
 - **DEBUG**: True (режим разработки)
